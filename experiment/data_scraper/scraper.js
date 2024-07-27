@@ -26,10 +26,10 @@ String.prototype.hashCode = function () {
 };
 
 const scraper = async (url) => {
-  recipeScraper(url).then(recipe => {
-    const fileName = `${recipe.name}_${url.hashCode()}`;
+  await recipeScraper(url).then(recipe => {
+    const fileName = `${recipe.name.slice(0, 20)}_${url.hashCode()}`;
     recipe.instructions = recipe.instructions.join(' ');
-    fs.writeFile(path.join(__dirname, 'recipes', `${fileName}.json}`), JSON.stringify(recipe), (error) => {
+    fs.writeFile(path.join(__dirname, 'recipes', `${fileName}.json`), JSON.stringify(recipe), (error) => {
       if (error) {
         console.log(error.message);
         throw error;
